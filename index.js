@@ -914,10 +914,10 @@ app.post(
   //verifyRequest,
   async (req, res) => {
     try {
-      console.log(req.body);    
+      console.log(JSON.parse(req.body));    
       const query = `query{
                         returnOrders(
-                        subscriptionId:"${body.subscriptionId}"
+                        subscriptionId:"${req.body.subscriptionId}"
                         ){
                         nodes{
                             id
@@ -937,7 +937,7 @@ app.post(
                         }
                         }
                     }`;
-      //console.log(query);
+      console.log(query);
 
       const response = await axios({
         method: 'post',

@@ -615,25 +615,17 @@ app.post(
   async (req, res) => {
     try {
       const query = ` mutation{
-        destroyOrderedProduct(input:{
-          id:"${req.body.orderedProductId}"
-        }){
-          orderedProduct{
-            id
-            quantity
-            shipmentDate
-            product{
-              id
-              title
-              priceWithSymbol
-              interval
-              intervalUnitOfMeasure
-            }
-            interval
-            intervalUnitOfMeasure
-          }
-        }
-      }`;
+          cancelSubscription(input:{
+           id:"${subscriptionId}"
+           token:"${subscriptionToken}"
+         }){
+           subscription{
+             id
+             token
+             status
+           }
+         }
+         }`;
       //console.log(query);
 
       const response = await axios({

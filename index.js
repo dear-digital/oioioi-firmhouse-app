@@ -76,7 +76,9 @@ app.get('/auth/callback', async (req, res) => {
 async function verifyRequest(req, res, next) {
 try{	
   console.log(req.query);
-  let body = JSON.parse(req.body);
+  console.log(req.req);
+  let parsedBody = JSON.parse(req.body);
+  console.log(parsedBody);
   // DESTRUCTURE signature and rest of query object
   const { signature, ...restQueryString } = req.query;
 

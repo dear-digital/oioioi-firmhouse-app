@@ -131,7 +131,7 @@ async function verifyRequest(req, res, next) {
 app.post(
   '/subscriptions',
   urlencodedParser,
-  //verifyRequest,
+  verifyRequest,
   async (req, res) => {
     try {
       console.log(req.body.customer_id);

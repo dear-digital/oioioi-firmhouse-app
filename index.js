@@ -77,8 +77,8 @@ async function verifyRequest(req, res, next) {
 try{	
   console.log(req.query);
   console.log(req.body);
-  let parsedBody = JSON.parse(req.body);
-  console.log(parsedBody);
+  //let parsedBody = JSON.parse(req.body);
+  //console.log(parsedBody);
   // DESTRUCTURE signature and rest of query object
   const { signature, ...restQueryString } = req.query;
 
@@ -106,8 +106,8 @@ try{
     // goto next step. If no, return 400 status error
     if (calculatedSignature === signature) {
       const { logged_in_customer_id, ...rest } = restQueryString;
-      if (body.customer_id) {
-        if (body.customer_id === logged_in_customer_id) {
+      if (req.body.customer_id) {
+        if (req.body.customer_id === logged_in_customer_id) {
           console.log('Customer id matched');
           next();
         } else {

@@ -74,6 +74,7 @@ app.get('/auth/callback', async (req, res) => {
 
 // Verify that the request is coming from an authentic source
 async function verifyRequest(req, res, next) {
+try{	
   console.log(req.query);
   let body = JSON.parse(req.body);
   // DESTRUCTURE signature and rest of query object
@@ -125,6 +126,9 @@ async function verifyRequest(req, res, next) {
     console.log('Unauthenticated request');
     res.status(400).send(`Unauthenticated Request`);
   }
+}catch(err){
+   console.log(err);
+}
 }
 
 // Get all subscriptions for an email

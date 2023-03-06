@@ -614,11 +614,10 @@ app.post(
   verifyRequest,
   async (req, res) => {
     try {
-	console.log(req.body);
       const query = `mutation{
           cancelSubscription(input:{
-           id:"${subscriptionId}"
-           token:"${subscriptionToken}"
+           id:"${req.body.subscriptionId}"
+           token:"${req.body.subscriptionToken}"
          }){
            subscription{
              id
@@ -627,7 +626,7 @@ app.post(
            }
          }
          }`;
-      console.log(query);
+      //console.log(query);
 
       const response = await axios({
         method: 'post',

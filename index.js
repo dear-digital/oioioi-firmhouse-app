@@ -911,10 +911,10 @@ app.post(
 app.post(
   '/subscriptions/getReturnOrders',
   urlencodedParser,
-  verifyRequest,
+  //verifyRequest,
   async (req, res) => {
     try {
-      let body = JSON.parse(req.body);    
+      console.log(req.body);    
       const query = `query{
                         returnOrders(
                         subscriptionId:"${body.subscriptionId}"

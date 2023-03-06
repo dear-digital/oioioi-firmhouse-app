@@ -137,23 +137,70 @@ app.post(
       //console.log(req.body.customer_id);
       const email = await getCustomerEmail(req.body.customer_id);
       //console.log(email);
-      const query = `query {
-		subscriptions(email:"${email}",statuses:[ACTIVATED,PAUSED,CANCELLED]){
-        nodes{
-            id
-            token
-            orders{
+      const query = `query{
+          subscriptions(email:"${email}",statuses:[ACTIVATED,INACTIVE]){
+            nodes {
               id
+              token
+              name
+              lastName
+              activatedAt
+              chargeDayOfTheMonth
+              startDate
+              paidAmount
+              paymentMethod
+              address
+              houseNumber
+              zipcode
+              city
+              country
+              locale
+              email
+              phoneNumber
               status
-              shipmentDate
-              amountCents
-              invoice{
+              orders {
+                id
+                status
+                shipmentDate
+                amountCents
+                
+              }
+              orderedProducts {
+                id
+                shipmentDate
+                quantity
+                status
+                product {
+                 id
+                 title
+                 imageUrl
+                 priceWithSymbol
+                 interval
+                 intervalUnitOfMeasure
+                }
+              }
+              invoices {
+                id
+                invoiceStatus
+                invoiceNumber
                 detailsUrl
               }
-            } 
-        }
-      }
-    }`;
+              extraFields {
+                id
+                extraFieldId
+                name
+                value
+              }
+              activePlan {
+                id
+                name
+                initialAmountIncludingTaxCents
+                initialAmountExcludingTaxCents
+                monthlyAmountCents
+              }
+            }
+          }
+        }`;
       //console.log(query);
 
       const response = await axios({

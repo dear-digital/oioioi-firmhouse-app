@@ -939,7 +939,7 @@ async function getCustomerEmail(customer_id) {
   try {
     const response = await axios({
       method: 'post',
-      url: 'https://teststore-dear-digital.myshopify.com/admin/api/graphql.json',
+      url: 'https://oioioidev.myshopify.com/admin/api/graphql.json',
       headers: {
         'X-Shopify-Access-Token': X_SHOPIFY_ACCESS_TOKEN,
       },

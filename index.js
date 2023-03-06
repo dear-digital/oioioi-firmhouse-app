@@ -614,7 +614,7 @@ app.post(
   verifyRequest,
   async (req, res) => {
     try {
-      const query = ` mutation{
+      const query = `mutation{
           cancelSubscription(input:{
            id:"${subscriptionId}"
            token:"${subscriptionToken}"

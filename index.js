@@ -99,8 +99,8 @@ try{
     // Calculate the hex digest of sortedParams
     const calculatedSignature = calculateHexDigest(sortedParams);
 
-    // console.log(calculatedSignature);
-    // console.log(signature);
+    console.log(calculatedSignature);
+    console.log(signature);
 
     // Check if both signatures are same. If yes,
     // goto next step. If no, return 400 status error

@@ -956,7 +956,7 @@ async function getCustomerEmail(customer_id) {
 }
 
 // Test Route
-app.get('/test', (req, res) => {
+app.get('/subscriptions/test', (req, res) => {
   res.send('Test Successfull');
 });
 

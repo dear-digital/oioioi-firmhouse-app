@@ -134,9 +134,9 @@ app.post(
   verifyRequest,
   async (req, res) => {
     try {
-      //console.log(req.body.customer_id);
+      console.log(req.body.customer_id);
       const email = await getCustomerEmail(req.body.customer_id);
-      //console.log(email);
+      console.log(email);
       const query = `query{
           subscriptions(email:"${email}",statuses:[ACTIVATED,INACTIVE]){
             nodes {

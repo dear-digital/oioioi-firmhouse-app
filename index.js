@@ -75,7 +75,7 @@ app.get('/auth/callback', async (req, res) => {
 // Verify that the request is coming from an authentic source
 async function verifyRequest(req, res, next) {
   console.log(req.query);
-
+  let body = JSON.parse(req.body);
   // DESTRUCTURE signature and rest of query object
   const { signature, ...restQueryString } = req.query;
 
@@ -103,8 +103,8 @@ async function verifyRequest(req, res, next) {
     // goto next step. If no, return 400 status error
     if (calculatedSignature === signature) {
       const { logged_in_customer_id, ...rest } = restQueryString;
-      if (req.body.customer_id) {
-        if (req.body.customer_id === logged_in_customer_id) {
+      if (body.customer_id) {
+        if (body.customer_id === logged_in_customer_id) {
           console.log('Customer id matched');
           next();
         } else {
@@ -908,9 +908,10 @@ app.post(
   verifyRequest,
   async (req, res) => {
     try {
+      let body = JSON.parse(req.body);    
       const query = `query{
                         returnOrders(
-                        subscriptionId:"${req.body.subscriptionId}"
+                        subscriptionId:"${body.subscriptionId}"
                         ){
                         nodes{
                             id

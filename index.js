@@ -515,32 +515,81 @@ app.post(
 // Add/Create Product API call
 app.post(
   '/subscriptions/createOrderedProduct',
-  urlencodedParser,
+  //urlencodedParser,
   verifyRequest,
   async (req, res) => {
     try {
       const query = ` mutation{
-        createOrderedProduct(input:{
-	  orderedProduct:{
-            productId:${req.body.productId}
-            quantity:${req.body.quantity}
-	  }
-        }){
-          orderedProduct{
-            id
-            shipmentDate
-            product{
-              id
-              title
-              priceWithSymbol
-              interval
-              intervalUnitOfMeasure
-            }
-            interval
-            intervalUnitOfMeasure
-          }
-        }
-      }`;
+						createOrderedProduct(input : {
+						  orderedProduct : {
+						  productId : "${req.body.productId}"
+						  quantity : ${req.body.quantity}
+						  }
+						  subscriptionId : "${req.body.subscriptionId}"
+						  }){
+						  orderedProduct {
+							productId
+							quantity
+						  }
+						  subscription {
+							id
+							name
+							lastName
+							activatedAt
+							chargeDayOfTheMonth
+							startDate
+							paidAmount
+							paymentMethod
+							address
+							houseNumber
+							zipcode
+							city
+							country
+							locale
+							email
+							phoneNumber
+							status
+							orders {
+								id
+								status
+								shipmentDate
+								amountCents
+								invoice {
+									id
+									status
+									detailsUrl
+								}
+							}
+						   orderedProducts {
+							  id
+							  shipmentDate
+							  quantity
+							  status
+							  product{
+									id
+									title
+									imageUrl
+									priceWithSymbol
+									interval
+									intervalUnitOfMeasure
+								}
+							}
+							extraFields{
+								id
+								extraFieldId
+								name
+								value
+							}
+							activePlan {
+								id
+								name
+								initialAmountIncludingTaxCents
+								initialAmountExcludingTaxCents
+								monthlyAmountCents              
+								}
+							}
+					  	}
+					}`;
       console.log(query);
 
       const response = await axios({

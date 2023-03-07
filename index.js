@@ -34,6 +34,9 @@ const app = express();
 
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 
+
+app.use(express.urlencoded({ extended : true }));
+app.use(express.json());
 app.use(cors());
 
 app.get('/', async (req, res) => {
@@ -910,7 +913,7 @@ app.post(
 // Get return orders API call
 app.post(
   '/subscriptions/getReturnOrders',
-  urlencodedParser,
+  //urlencodedParser,
   //verifyRequest,
   async (req, res) => {
     try {

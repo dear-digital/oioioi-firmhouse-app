@@ -1141,7 +1141,7 @@ app.post(
                             }
                         }
                     }`;
-      //console.log(query);
+      console.log(query);
 
       const response = await axios({
         method: 'post',

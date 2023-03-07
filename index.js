@@ -32,7 +32,7 @@ Shopify.Context.initialize({
 
 const app = express();
 
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var urlencodedParser = bodyParser.urlencoded({ extended: true });
 
 app.use(cors());
 

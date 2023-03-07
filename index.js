@@ -1069,6 +1069,100 @@ app.post(
   }
 );
 
+// Activate subscription API call
+app.post(
+  '/subscriptions/activateSubscription',
+  //urlencodedParser,
+  verifyRequest,
+  async (req, res) => {
+    try {
+      //console.log(req.body);    
+      const query = `mutation {
+                        activateSubscription(input: {
+                                id: "${req.body.subscriptionId}"
+                            })
+                        {
+                            subscription {
+                                id
+                                name
+                                lastName
+                                activatedAt
+				chargeDayOfTheMonth
+                                startDate
+                                paidAmount
+                                paymentMethod
+                                address
+                                houseNumber
+                                zipcode
+                                city
+                                country
+                                locale
+                                email
+                                phoneNumber
+                                status
+                                orders {
+                                    id
+                                    status
+                                    shipmentDate
+                                    amountCents
+                                    invoice {
+                                        id
+                                        status
+                                        detailsUrl
+                                    }
+                                }
+                                orderedProducts {
+                                  id
+                                  shipmentDate
+                                  quantity
+                                  status
+                                  product {
+                                        id
+                                        title
+                                        imageUrl
+                                        priceWithSymbol
+                                        interval
+                                        intervalUnitOfMeasure
+                                    }
+                                }
+                                extraFields{
+                                    id
+                                    extraFieldId
+                                    name
+                                    value
+                                }
+                                activePlan {
+                                    id
+                                    name
+                                    initialAmountIncludingTaxCents
+                                    initialAmountExcludingTaxCents
+                                    monthlyAmountCents              
+                                }
+                            }
+                        }
+                    }`;
+      //console.log(query);
+
+      const response = await axios({
+        method: 'post',
+        url: 'https://portal.firmhouse.com/graphql',
+        headers: {
+          'X-PROJECT-ACCESS-TOKEN': X_PROJECT_ACCESS_TOKEN,
+        },
+        data: {
+          query: query,
+        },
+      });
+
+      // console.log(response.data.data.subscriptions.nodes);
+      res.json(response.data);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Oops ! Some error occurred');
+    }
+  }
+);
+
 
 // Function to calculate HEX Digest
 function calculateHexDigest(query) {

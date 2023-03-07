@@ -914,7 +914,7 @@ app.post(
   //verifyRequest,
   async (req, res) => {
     try {
-      console.log(req.body);    
+      console.log(JSON.parse(JSON.stringify(req.body)));    
       const query = `query{
                         returnOrders(
                         subscriptionId:"${req.body.subscriptionId}"

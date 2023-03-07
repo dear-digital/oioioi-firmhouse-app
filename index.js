@@ -963,6 +963,64 @@ app.post(
 );
 
 
+// Create return order API call
+app.post(
+  '/subscriptions/createReturnOrder',
+  //urlencodedParser,
+  verifyRequest,
+  async (req, res) => {
+    try {
+      //console.log(req.body);    
+      const query = `mutation{
+          createReturnOrder(input:{
+          subscriptionId : "${req.body.subscriptionId}"
+          returnOrderProducts : {
+            orderedProductId: "${req.body.orderedProductId}"
+            quantity: ${req.body.quantity}
+          }
+          reason:"${req.body.reason}"
+          }){
+          returnOrder{
+            id
+            createdAt
+            reason
+            returnOrderProducts{
+            id
+            orderedProductId
+            product{
+              title
+            }
+            quantity
+            }
+          }
+          errors{
+            message
+          }
+          }
+        }`;
+      //console.log(query);
+
+      const response = await axios({
+        method: 'post',
+        url: 'https://portal.firmhouse.com/graphql',
+        headers: {
+          'X-PROJECT-ACCESS-TOKEN': X_PROJECT_ACCESS_TOKEN,
+        },
+        data: {
+          query: query,
+        },
+      });
+
+      // console.log(response.data.data.subscriptions.nodes);
+      res.json(response.data);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Oops ! Some error occurred');
+    }
+  }
+);
+
+
 // Function to calculate HEX Digest
 function calculateHexDigest(query) {
   var hmac = crypto.createHmac('sha256', SHOPIFY_API_SECRET);

@@ -914,10 +914,10 @@ app.post(
 app.post(
   '/subscriptions/getReturnOrders',
   //urlencodedParser,
-  //verifyRequest,
+  verifyRequest,
   async (req, res) => {
     try {
-      console.log(req.body);    
+      //console.log(req.body);    
       const query = `query{
                         returnOrders(
                         subscriptionId:"${req.body.subscriptionId}"
@@ -940,7 +940,7 @@ app.post(
                         }
                         }
                     }`;
-      console.log(query);
+      //console.log(query);
 
       const response = await axios({
         method: 'post',

@@ -1231,18 +1231,22 @@ var mailOptions = {
   from: 'shahidpt0982219@gmail.com',
   to: 'shahid@deardigital.com',
   subject: 'Sending Email using Node.js',
-  text: 'That was easy!'
+  text: 'That was easy!',
+  html: '<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fphotos-images%2Fbeautiful.html&psig=AOvVaw15XiMGJgmBGFqAZ3E2YZMR&ust=1678360794603000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCMiewq2bzP0CFQAAAAAdAAAAABAE"/>'
 };
 
 transporter.sendMail(mailOptions, function(error, info){
   if (error) {
     console.log(error);
+    res.status(500).send('Oops ! Some error occurred');
   } else {
     console.log('Email sent: ' + info.response);
+    res.status(200).send('Email sent successfully');	  
   }
 });
 }catch(err){
   console.log(err);
+  res.status(500).send('Oops ! Some error occurred');
 }
 });
 

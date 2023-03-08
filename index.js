@@ -1232,8 +1232,7 @@ var mailOptions = {
   to: 'shahid@deardigital.com',
   subject: 'Sending Email using Node.js',
   text: 'That was easy!',
-  html: '<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fphotos-images%2Fbeautiful.html&psig=AOvVaw15XiMGJgmBGFqAZ3E2YZMR&ust=1678360794603000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCMiewq2bzP0CFQAAAAAdAAAAABAE"/>'
-};
+  html: '<img src="https://cdn.shopify.com/s/files/1/0694/2474/2715/products/midi_10_640ed176-00d9-421a-995e-8ae0c1a45692_300x.png?v=1672323135"/>
 
 transporter.sendMail(mailOptions, function(error, info){
   if (error) {

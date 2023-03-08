@@ -1218,11 +1218,12 @@ app.get('/subscriptions/test', (req, res) => {
 
 // Send email
 app.get('/subscriptions/sendEmail', (req, res) => {
+try{
   var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'shahidpt0982219@gmail.com',
-    pass: 'rocknrollbaby'
+    pass: 'gnxlakmqnoewvnsa'
   }
 });
 
@@ -1240,6 +1241,9 @@ transporter.sendMail(mailOptions, function(error, info){
     console.log('Email sent: ' + info.response);
   }
 });
+}catch(err){
+  console.log(err);
+}
 });
 
 app.listen(port, () => {

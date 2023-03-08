@@ -1230,9 +1230,9 @@ try{
 var mailOptions = {
   from: 'shahidpt0982219@gmail.com',
   to: 'shahid@deardigital.com',
-  subject: 'Sending Email using Node.js',
+  subject: 'Request to Change Plan',
   //text: 'That was easy!',
-  html: '<div style="display:flex;border:1px solid grey">
+  html: `<div style="display:flex;border:1px solid grey">
 	  <img style="width:200px;margin:10px" src="https://cdn.shopify.com/s/files/1/0694/2474/2715/products/midi_10_640ed176-00d9-421a-995e-8ae0c1a45692_300x.png"/>
 	  <div style="margin:10px">
 	    <p>
@@ -1248,7 +1248,7 @@ var mailOptions = {
 	      <b>Upgrade/Downgrade to Plan:</b><span>Midi - monthly plan</span>
 	    </p>
 	  </div>
-	</div>'
+	</div>`
 }
 
 transporter.sendMail(mailOptions, function(error, info){

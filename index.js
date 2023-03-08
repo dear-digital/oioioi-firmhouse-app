@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import crypto from 'crypto';
 import axios from 'axios';
+import nodemailer from 'nodemailer';
 
 dotenv.config();
 
@@ -1213,6 +1214,32 @@ async function getCustomerEmail(customer_id) {
 // Test Route
 app.get('/subscriptions/test', (req, res) => {
   res.send('Test Successfull');
+});
+
+// Send email
+app.get('/subscriptions/sendEmail', (req, res) => {
+  var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'shahidpt0982219@gmail.com',
+    pass: 'rocknrollbaby'
+  }
+});
+
+var mailOptions = {
+  from: 'shahidpt0982219@gmail.com',
+  to: 'shahid@deardigital.com',
+  subject: 'Sending Email using Node.js',
+  text: 'That was easy!'
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
 });
 
 app.listen(port, () => {

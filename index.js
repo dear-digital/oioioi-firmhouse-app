@@ -1366,6 +1366,35 @@ app.post(
   }
 );
 
+// Buy product API call
+app.post(
+  '/subscriptions/buyProduct',
+  //urlencodedParser,
+  verifyRequest,
+  async (req, res) => {
+    try {
+     let emailBody = `<div style="display:flex;border:1px solid grey">
+	  <img style="width:200px;margin:10px" src="${req.body.image}"/>
+	  <div style="margin:10px">
+	    <p>
+	      <b>Name:</b><span>${req.body.subscriptionName}</span>
+	    </p>
+	    <p>
+	      <b>Subscription ID:</b><span>${req.body.subscriptionId}</span>
+	    </p>
+	    <p>
+	      <b>Product:</b><span>${req.body.productTitle}</span>
+	    </p>
+	  </div>
+	</div>`;
+      sendEmail(req.body.subscriptionEmail,"Request to buy product",emailbody);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Oops ! Some error occurred');
+    }
+  }
+);
+
 
 // Function to calculate HEX Digest
 function calculateHexDigest(query) {
@@ -1419,7 +1448,7 @@ app.get('/subscriptions/test', (req, res) => {
 });
 
 // Send email
-app.get('/subscriptions/sendEmail', (req, res) => {
+function sendEmail(cc,subject,html){
 try{
   var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -1432,25 +1461,12 @@ try{
 var mailOptions = {
   from: 'shahidpt0982219@gmail.com',
   to: 'shahid@deardigital.com',
-  subject: 'Request to Change Plan',
+  cc: [
+      cc
+  ],
+  subject: subject,
   //text: 'That was easy!',
-  html: `<div style="display:flex;border:1px solid grey">
-	  <img style="width:200px;margin:10px" src="https://cdn.shopify.com/s/files/1/0694/2474/2715/products/midi_10_640ed176-00d9-421a-995e-8ae0c1a45692_300x.png"/>
-	  <div style="margin:10px">
-	    <p>
-	      <b>Name:</b><span>Shahid Barbhuiya</span>
-	    </p>
-	    <p>
-	      <b>Subscription ID:</b><span>#3491122</span>
-	    </p>
-	    <p>
-	      <b>Current Plan:</b><span>Mini - monthly plan</span>
-	    </p>
-	    <p>
-	      <b>Upgrade/Downgrade to Plan:</b><span>Midi - monthly plan</span>
-	    </p>
-	  </div>
-	</div>`
+  html: html
 }
 
 transporter.sendMail(mailOptions, function(error, info){
@@ -1466,7 +1482,7 @@ transporter.sendMail(mailOptions, function(error, info){
   console.log(err);
   res.status(500).send('Oops ! Some error occurred');
 }
-});
+}
 
 app.listen(port, () => {
   console.log('App is running on port ' + port);

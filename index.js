@@ -534,6 +534,7 @@ app.post(
 						  }
 						  subscription {
 							id
+							token
 							name
 							lastName
 							activatedAt
@@ -1085,6 +1086,7 @@ app.post(
                         {
                             subscription {
                                 id
+				token
                                 name
                                 lastName
                                 activatedAt
@@ -1184,6 +1186,7 @@ app.post(
                         {
                             subscription {
                                 id
+				token
                                 name
                                 lastName
                                 activatedAt
@@ -1283,6 +1286,7 @@ app.post(
                         {
                             subscription {
                                 id
+				token
                                 name
                                 lastName
                                 activatedAt

@@ -1475,12 +1475,15 @@ var mailOptions = {
 }
 
 transporter.sendMail(mailOptions, function(error, info){
+  let emailSent;
   if (error) {
     console.log(error);
-    return false;
+    emailSent = false;
+    return emailSent;
   } else {
     console.log('Email sent: ' + info.response);
-    return true;	  
+    emailSent = true;
+    return emailSent;	  
   }
 });
 }catch(err){

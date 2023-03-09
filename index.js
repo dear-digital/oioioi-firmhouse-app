@@ -1391,7 +1391,7 @@ app.post(
       if(emailSent == true){
 	res.status(200).send('Email sent successfully');
       }else{
-	res.status(500).send('Oops ! Some error occurred');
+	res.status(400).send('Email could not be sent. Please try later.');
       }
     } catch (error) {
       console.log(error);

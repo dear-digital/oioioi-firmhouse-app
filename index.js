@@ -1387,7 +1387,7 @@ app.post(
 	    </p>
 	  </div>
 	</div>`;
-      sendEmail(req.body.subscriptionEmail,"Request to buy product",emailbody);
+      sendEmail(req.body.subscriptionEmail,"Request to buy product",emailBody);
     } catch (error) {
       console.log(error);
       res.status(500).send('Oops ! Some error occurred');

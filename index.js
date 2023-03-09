@@ -1387,7 +1387,12 @@ app.post(
 	    </p>
 	  </div>
 	</div>`;
-      sendEmail(req.body.subscriptionEmail,"Request to buy product",emailBody);
+      let emailSent = sendEmail(req.body.subscriptionEmail,"Request to buy product",emailBody);
+      if(emailSent == true){
+	res.status(200).send('Email sent successfully');
+      }else{
+	res.status(500).send('Oops ! Some error occurred');
+      }
     } catch (error) {
       console.log(error);
       res.status(500).send('Oops ! Some error occurred');
@@ -1472,15 +1477,15 @@ var mailOptions = {
 transporter.sendMail(mailOptions, function(error, info){
   if (error) {
     console.log(error);
-    res.status(500).send('Oops ! Some error occurred');
+    return false;
   } else {
     console.log('Email sent: ' + info.response);
-    res.status(200).send('Email sent successfully');	  
+    return true;	  
   }
 });
 }catch(err){
   console.log(err);
-  res.status(500).send('Oops ! Some error occurred');
+  return false;
 }
 }
 

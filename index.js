@@ -1388,11 +1388,12 @@ app.post(
 	  </div>
 	</div>`;
       let emailSent = await sendEmail(req.body.subscriptionEmail,"Request to buy product",emailBody);
-      if(emailSent == true){
-	res.status(200).send('Email sent successfully');
-      }else{
-	res.status(400).send('Email could not be sent. Please try later.');
-      }
+      console.log(emailSent);
+//       if(emailSent == true){
+// 	res.status(200).send('Email sent successfully');
+//       }else{
+// 	res.status(400).send('Email could not be sent. Please try later.');
+//       }
     } catch (error) {
       console.log(error);
       res.status(500).send('Oops ! Some error occurred');
@@ -1479,11 +1480,11 @@ transporter.sendMail(mailOptions, function(error, info){
   if (error) {
     console.log(error);
     emailSent = false;
-    return emailSent;
+    return error;
   } else {
     console.log('Email sent: ' + info.response);
     emailSent = true;
-    return emailSent;	  
+    return info;	  
   }
 });
 }catch(err){

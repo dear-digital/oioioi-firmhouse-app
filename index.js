@@ -1387,7 +1387,7 @@ app.post(
 	    </p>
 	  </div>
 	</div>`;
-      let emailSent = sendEmail(req.body.subscriptionEmail,"Request to buy product",emailBody);
+      let emailSent = await sendEmail(req.body.subscriptionEmail,"Request to buy product",emailBody);
       if(emailSent == true){
 	res.status(200).send('Email sent successfully');
       }else{
@@ -1453,7 +1453,7 @@ app.get('/subscriptions/test', (req, res) => {
 });
 
 // Send email
-function sendEmail(cc,subject,html){
+async function sendEmail(cc,subject,html){
 try{
   var transporter = nodemailer.createTransport({
   service: 'gmail',

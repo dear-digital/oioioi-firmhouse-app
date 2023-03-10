@@ -21,6 +21,14 @@ const {
   X_SHOPIFY_ACCESS_TOKEN,
 } = process.env;
 
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'shahidpt0982219@gmail.com',
+    pass: 'gnxlakmqnoewvnsa'
+  }
+});
+
 const shops = {};
 
 Shopify.Context.initialize({
@@ -1387,13 +1395,13 @@ app.post(
 	    </p>
 	  </div>
 	</div>`;
-      let emailSent = await sendEmail(req.body.subscriptionEmail,"Request to buy product",emailBody);
+      let emailSent = sendEmail(req.body.subscriptionEmail,"Request to buy product",emailBody);
       console.log(emailSent);
-//       if(emailSent == true){
-// 	res.status(200).send('Email sent successfully');
-//       }else{
-// 	res.status(400).send('Email could not be sent. Please try later.');
-//       }
+      if(emailSent == true){
+	res.status(200).send('Email sent successfully');
+      }else{
+	res.status(400).send('Email could not be sent. Please try later.');
+      }
     } catch (error) {
       console.log(error);
       res.status(500).send('Oops ! Some error occurred');
@@ -1456,14 +1464,6 @@ app.get('/subscriptions/test', (req, res) => {
 // Send email
 async function sendEmail(cc,subject,html){
 try{
-  var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'shahidpt0982219@gmail.com',
-    pass: 'gnxlakmqnoewvnsa'
-  }
-});
-
 var mailOptions = {
   from: 'shahidpt0982219@gmail.com',
   to: 'shahid@deardigital.com',
@@ -1475,18 +1475,13 @@ var mailOptions = {
   html: html
 }
 
-transporter.sendMail(mailOptions, function(error, info){
-  let emailSent;
-  if (error) {
-    console.log(error);
-    emailSent = false;
-    return error;
-  } else {
-    console.log('Email sent: ' + info.response);
-    emailSent = true;
-    return info;	  
-  }
-});
+let info = await transporter.sendMail(mailOptions);
+if(info){
+  console.log("Email sent: "+ info.response);
+  return true;
+}else{
+  return false;
+}
 }catch(err){
   console.log(err);
   return false;
